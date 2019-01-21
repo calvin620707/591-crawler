@@ -9,13 +9,13 @@ class Spider(scrapy.Spider):
         yield scrapy.Request(getattr(self, 'url'), self.parse)
 
     def parse(self, response):
-        # house_type = response.css('.detail-house-value::text')[1].extract()
         address = response.css('.info-addr-value::text')[2].extract()
         floor = response.css('.info-addr-value::text')[0].extract()
         locate_floor, max_floor = floor.replace('F', '').split('/')
 
         yield {
             'title': response.css('.detail-title-content::text').extract_first().replace(' ', '').replace('\n', ''),
+            'house_type': response.css('.detail-house-value::text')[1].extract(),
             'district': address[3:6],
             'years': response.css('.info-floor-key::text')[1].extract().replace('年', ''),
             'structure': response.css('.info-floor-key::text')[0].extract(),

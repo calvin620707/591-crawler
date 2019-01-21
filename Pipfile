@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 scrapy = "*"
+flask = "*"
+python-dotenv = "*"
 
 [dev-packages]
 pylint = "*"
