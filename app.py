@@ -19,7 +19,7 @@ def index():
 def crawl_591():
     if request.method == 'POST':
         url = request.form["url"]
-        if 'sale.591.com.tw' not in url:
+        if 'sale.591.com.tw' not in url and 'www.591.com.tw' not in url:
             return "請輸入591網址"
 
         if output.exists():
