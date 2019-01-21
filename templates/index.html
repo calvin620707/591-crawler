@@ -1,25 +1,38 @@
 <html>
 <title>591爬蟲</title>
+
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <style>
-        form {
-            top: 50%;
-            position: absolute;
-            width: 100vw;
-            text-align: center;
+        .row {
+            margin: 8px;
         }
-        input {
-            width: 500px;
+        .search-input {
+            width: 520px;
         }
     </style>
 </head>
 
 <body>
-    <form action="/591" method="POST">
-        <label for="591-url-input">591網址</label>
-        <input id="591-url-input" name="url" type="text">
-        <button type="submit">爬爬爬...</button>
-    </form>
+    <div class="container" style="position: relative; top: 50%;">
+        <form action="/591" method="POST" autocomplete="off">
+            <div class="row align-items-center">
+                <div class="col"></div>
+                <div class="col-auto">
+                    <input type="text" name="url" autofocus placeholder="591網址" class="form-control search-input">
+                </div>
+                <div class="col"></div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col"></div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">爬爬爬...</button>
+                </div>
+                <div class="col"></div>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>
