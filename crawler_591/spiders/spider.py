@@ -9,13 +9,15 @@ class Spider(scrapy.Spider):
         yield scrapy.Request(getattr(self, 'url'), self.parse)
 
     def parse(self, response):
-        address = response.css('.info-addr-value::text')[2].extract()
-        floor = response.css('.info-addr-value::text')[0].extract()
+        addr_items = response.css('.info-addr-value')
+        address = addr_items[2].css('::text').extract_first()
+        floor = addr_items[0].css('::text').extract_first()
         locate_floor, max_floor = floor.replace('F', '').split('/')
+        self.house_details = response.css('.detail-house-value::text')
 
         yield {
             'title': response.css('.detail-title-content::text').extract_first().replace(' ', '').replace('\n', ''),
-            'house_type': response.css('.detail-house-value::text')[1].extract(),
+            'house_type': self._get_detail(1),
             'district': address[3:6],
             'years': response.css('.info-floor-key::text')[1].extract().replace('年', ''),
             'structure': response.css('.info-floor-key::text')[0].extract(),
@@ -24,9 +26,12 @@ class Spider(scrapy.Spider):
             'total_size': response.css('.info-floor-key::text')[2].extract().replace('坪', ''),
             'locate_floor': locate_floor,
             'max_floor': max_floor,
-            'main_size': response.css('.detail-house-value::text')[8].extract().replace('坪', ''),
-            'public_ratio': response.css('.detail-house-value::text')[7].extract(),
-            'manage_fee': response.css('.detail-house-value::text')[3].extract().replace('元', ''),
-            'parking': response.css('.detail-house-value::text')[6].extract().replace('無', ''),
+            'main_size': self._get_detail(8).replace('坪', ''),
+            'public_ratio': self._get_detail(7),
+            'manage_fee': self._get_detail(3).replace('元', ''),
+            'parking': self._get_detail(6).replace('無', ''),
             'address': address,
         }
+
+    def _get_detail(self, index):
+        return self.house_details[index].extract() if len(self.house_details) > index else ''
