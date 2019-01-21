@@ -18,12 +18,16 @@ def index():
 @app.route('/591', methods=['POST'])
 def crawl_591():
     if request.method == 'POST':
+        url = request.form["url"]
+        if 'sale.591.com.tw' not in url:
+            return "請輸入591網址"
+
         if output.exists():
             os.remove(str(output))
         subprocess.run(
-            ['scrapy', 'crawl', 'spider', '-a', f'url={request.form["url"]}'],
+            ['scrapy', 'crawl', 'spider', '-a', f'url={url}'],
         )
         with output.open('rb') as f:
             data = pickle.load(f)
-        data['url'] = request.form["url"]
+        data['url'] = url
         return render_template('591_results.html', data=data)
