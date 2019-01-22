@@ -1,3 +1,5 @@
+{% from 'search_bar.html' import search_bar %}
+
 {% extends "base.html" %}
 {% block title %}591結果{% endblock %}
 {% block head %}
@@ -12,53 +14,56 @@
 {% endblock %}
 {% block content %}
 <div class="row align-items-center" style="height: 100vh">
-    <div class="col">
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">名稱</th>
-                    <th scope="col">房屋類型</th>
-                    <th scope="col">行政區</th>
-                    <th scope="col">屋齡</th>
-                    <th scope="col">格局</th>
-                    <th scope="col">總價</th>
-                    <th scope="col">一坪價格</th>
-                    <th scope="col">總坪數</th>
-                    <th scope="col">樓層</th>
-                    <th scope="col">最高樓層</th>
-                    <th scope="col">主建坪數</th>
-                    <th scope="col">公設比</th>
-                    <th scope="col">走路至捷運站(分)</th>
-                    <th scope="col">最近捷運站</th>
-                    <th scope="col">管理費</th>
-                    <th scope="col">總價含車位</th>
-                    <th scope="col">詳細地址</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="text-align: left;">
-                        <a href="{{data['url']}}">{{data['title']}}</a>
-                    </td>
-                    <td>{{data['house_type']}}</td>
-                    <td>{{data['district']}}</td>
-                    <td>{{data['years']}}</td>
-                    <td>{{data['structure']}}</td>
-                    <td>{{data['total_price']}}</td>
-                    <td>{{data['price_per']}}</td>
-                    <td>{{data['total_size']}}</td>
-                    <td>{{data['locate_floor']}}</td>
-                    <td>{{data['max_floor']}}</td>
-                    <td>{{data['main_size']}}</td>
-                    <td>{{data['public_ratio']}}</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{data['manage_fee']}}</td>
-                    <td>{{data['parking']}}</td>
-                    <td style="text-align: left;">{{data['address']}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="row justify-content-center">
+        <div class="col-xs-12">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">名稱</th>
+                        <th scope="col">房屋類型</th>
+                        <th scope="col">行政區</th>
+                        <th scope="col">屋齡</th>
+                        <th scope="col">格局</th>
+                        <th scope="col">總價</th>
+                        <th scope="col">一坪價格</th>
+                        <th scope="col">總坪數</th>
+                        <th scope="col">樓層</th>
+                        <th scope="col">最高樓層</th>
+                        <th scope="col">主建坪數</th>
+                        <th scope="col">公設比</th>
+                        <th scope="col">走路至捷運站(分)</th>
+                        <th scope="col">最近捷運站</th>
+                        <th scope="col">管理費</th>
+                        <th scope="col">總價含車位</th>
+                        <th scope="col">詳細地址</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: left;">
+                            <a href="{{data['url']}}">{{data['title']}}</a>
+                        </td>
+                        <td>{{data['house_type']}}</td>
+                        <td>{{data['district']}}</td>
+                        <td>{{data['years']}}</td>
+                        <td>{{data['structure']}}</td>
+                        <td>{{data['total_price']}}</td>
+                        <td>{{data['price_per']}}</td>
+                        <td>{{data['total_size']}}</td>
+                        <td>{{data['locate_floor']}}</td>
+                        <td>{{data['max_floor']}}</td>
+                        <td>{{data['main_size']}}</td>
+                        <td>{{data['public_ratio']}}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{data['manage_fee']}}</td>
+                        <td>{{data['parking']}}</td>
+                        <td style="text-align: left;">{{data['address']}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xs-12">{{ search_bar() }}</div>
     </div>
 </div>
 {% endblock %}

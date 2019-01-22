@@ -1,0 +1,18 @@
+{% macro search_bar() -%}
+<form action="/crawl" method="POST" autocomplete="off">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-auto">
+            <input type="text" name="url" autofocus placeholder="賣房網站網址" class="form-control search-input">
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">爬爬爬</button>
+        </div>
+        <div class="col"></div>
+    </div>
+</form>
+{%- endmacro %}
