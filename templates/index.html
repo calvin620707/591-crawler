@@ -1,30 +1,29 @@
-<html>
-<title>591爬蟲</title>
+{% extends "base.html" %}
+{% block title %}首頁{% endblock %}
+{% block head %}
+{{ super() }}
+<style type="text/css">
+    .row {
+        margin: 24px;
+    }
 
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <style>
-        .row {
-            margin: 8px;
-        }
-        .search-input {
-            width: 520px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container" style="position: relative; top: 50%;">
+    .search-input {
+        width: 520px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="row align-items-center" style="height: 100vh">
+    <div class="col">
         <form action="/591" method="POST" autocomplete="off">
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col"></div>
                 <div class="col-auto">
                     <input type="text" name="url" autofocus placeholder="591網址" class="form-control search-input">
                 </div>
                 <div class="col"></div>
             </div>
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col"></div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary">爬爬爬...</button>
@@ -33,6 +32,5 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock %}
