@@ -25,7 +25,7 @@ def crawl_591():
         if output.exists():
             os.remove(str(output))
         subprocess.run(
-            ['scrapy', 'crawl', 'spider', '-a', f'url={url}'],
+            ['scrapy', 'crawl', '591', '-a', f'url={url}'],
         )
         with output.open('rb') as f:
             data = pickle.load(f)

@@ -1,7 +1,7 @@
 import scrapy
 
 class Spider(scrapy.Spider):
-    name = 'spider'
+    name = '591'
 
     def start_requests(self):
         if not hasattr(self, 'url'):
