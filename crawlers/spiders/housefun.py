@@ -32,7 +32,7 @@ class Spider(scrapy.Spider):
             'main_size': response.css('.popover-content .info::text')[0].extract().strip(' 坪'),
             'public_ratio': '',
             'manage_fee': self._find_extra_info('管理費').strip('管理費 元/月').replace(',', ''),
-            'parking': self._find_extra_info('車位'),
+            'parking': self._find_extra_info('車位', exclude='輪椅'),
             'address': address,
         }
 
@@ -42,10 +42,10 @@ class Spider(scrapy.Spider):
         except:
             return ''
 
-    def _find_extra_info(self, keyword):
+    def _find_extra_info(self, keyword, exclude=''):
         for item in self.extra_info:
             text = item.extract()
-            if keyword in text:
+            if keyword in text and exclude not in text:
                 return text
         return ''
 
