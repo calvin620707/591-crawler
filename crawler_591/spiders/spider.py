@@ -10,14 +10,15 @@ class Spider(scrapy.Spider):
 
     def parse(self, response):
         self.addr_items = response.css('.info-addr-content')
-        address = self._find_addr()
-        floor = self.addr_items[0].css('.info-addr-value::text').extract_first()
+        self.house_details = response.css('.detail-house-item')
+
+        address = self._find_addr('地址')
+        floor = self._find_addr('樓層')
         locate_floor, max_floor = floor.replace('F', '').split('/')
-        self.house_details = response.css('.detail-house-value::text')
 
         yield {
             'title': response.css('.detail-title-content::text').extract_first().replace(' ', '').replace('\n', ''),
-            'house_type': self._get_detail(1),
+            'house_type': self._get_house_detail('型態'),
             'district': address[3:6],
             'years': response.css('.info-floor-key::text')[1].extract().replace('年', ''),
             'structure': response.css('.info-floor-key::text')[0].extract(),
@@ -26,17 +27,20 @@ class Spider(scrapy.Spider):
             'total_size': response.css('.info-floor-key::text')[2].extract().replace('坪', ''),
             'locate_floor': locate_floor,
             'max_floor': max_floor,
-            'main_size': self._get_detail(8).replace('坪', ''),
-            'public_ratio': self._get_detail(7),
-            'manage_fee': self._get_detail(3).replace('元', ''),
-            'parking': self._get_detail(6).replace('無', ''),
+            'main_size': self._get_house_detail('主建物').replace('坪', ''),
+            'public_ratio': self._get_house_detail('公設比'),
+            'manage_fee': self._get_house_detail('管理費').replace('元', ''),
+            'parking': self._get_house_detail('車位').replace('無', ''),
             'address': address,
         }
 
-    def _get_detail(self, index):
-        return self.house_details[index].extract() if len(self.house_details) > index else ''
+    def _get_house_detail(self, key):
+        for item in self.house_details:
+            if item.css('.detail-house-key::text').extract_first() == key:
+                return item.css('.detail-house-value::text').extract_first()
+        return ''
 
-    def _find_addr(self):
+    def _find_addr(self, key):
         for item in self.addr_items:
-            if item.css('.info-addr-key::text').extract_first() == '地址':
+            if item.css('.info-addr-key::text').extract_first() == key:
                 return item.css('.info-addr-value::text').extract_first()
