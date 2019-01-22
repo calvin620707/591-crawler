@@ -9,9 +9,9 @@ class Spider(scrapy.Spider):
         yield scrapy.Request(getattr(self, 'url'), self.parse)
 
     def parse(self, response):
-        addr_items = response.css('.info-addr-value')
-        address = addr_items[2].css('::text').extract_first()
-        floor = addr_items[0].css('::text').extract_first()
+        self.addr_items = response.css('.info-addr-content')
+        address = self._find_addr()
+        floor = self.addr_items[0].css('.info-addr-value::text').extract_first()
         locate_floor, max_floor = floor.replace('F', '').split('/')
         self.house_details = response.css('.detail-house-value::text')
 
@@ -35,3 +35,8 @@ class Spider(scrapy.Spider):
 
     def _get_detail(self, index):
         return self.house_details[index].extract() if len(self.house_details) > index else ''
+
+    def _find_addr(self):
+        for item in self.addr_items:
+            if item.css('.info-addr-key::text').extract_first() == '地址':
+                return item.css('.info-addr-value::text').extract_first()
