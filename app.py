@@ -17,6 +17,7 @@ def decide_spider(url):
         'buy.housefun.com.tw': 'housefun',
         'sale.591.com.tw': '591',
         'www.591.com.tw': '591',
+        'buy.yungching.com.tw': 'yungching',
     }
 
     try:
